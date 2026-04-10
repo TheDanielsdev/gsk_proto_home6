@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How Education Changes Everything — GSK Initiative Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --sky:#2e9dbf;
+      --sky2:#1a7d9e;
+      --sky-pale:#edf7fb;
+      --crimson:#c0392b;
+      --crim-dark:#9b2d1f;
+      --crim-pale:#fef2f1;
+      --pink:#d4607a;
+      --pink2:#b84d67;
+      --pink-pale:#fdf0f3;
+      --black:#161616;
+      --white:#fff;
+      --off:#f8f8f6;
+      --muted:#666;
+      --muted2:#999;
+      --border:#e8e8e8;
+      --serif:'Lora',Georgia,serif;
+      --sans:'Outfit',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);color:var(--black);background:var(--white);line-height:1.6;overflow-x:hidden;}
+    a{text-decoration:none;color:inherit;}
+    img{display:block;max-width:100%;}
+
+    /* ── TOPBAR ── */
+    .topbar{background:var(--sky2);padding:8px 5%;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.8);}
+    .topbar a{color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.4);cursor:pointer;}
+
+    /* ── TICKER ── */
+    .ticker{background:var(--black);overflow:hidden;white-space:nowrap;}
+    .tinner{display:inline-block;padding:9px 0;animation:rt 32s linear infinite;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.02em;}
+    .ticker:hover .tinner{animation-play-state:paused;}
+    .tinner span{margin-right:64px;}
+    .tinner span::before{content:'— ';}
+    .tinner span.accent{color:var(--pink);}
+    @keyframes rt{from{transform:translateX(100vw);}to{transform:translateX(-100%);}}
+
+    /* ── HEADER ── */
+    .site-header{background:var(--white);border-bottom:4px solid var(--sky);display:flex;align-items:center;justify-content:space-between;padding:16px 5%;}
+    .logo img{height:56px;width:auto;}
+    .hd-right{display:flex;align-items:center;gap:32px;}
+    .hd-meta{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+    .hd-meta span{font-size:11px;color:var(--muted);font-weight:500;}
+    .hd-donate{background:var(--crimson);color:#fff;font-weight:700;font-size:13px;padding:12px 26px;letter-spacing:.05em;text-transform:uppercase;transition:.2s;cursor:pointer;border:none;font-family:var(--sans);}
+    .hd-donate:hover{background:var(--crim-dark);transform:translateY(-1px);}
+
+    /* ── NAV ── */
+    .nav{background:var(--sky);position:sticky;top:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:52px;transition:box-shadow .3s;}
+    .nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.18);}
+    .nav-links{display:flex;align-items:center;}
+    .nav-links a{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.85);padding:8px 16px;transition:.15s;letter-spacing:.01em;}
+    .nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.15);}
+    .nav-right{display:flex;align-items:center;gap:12px;}
+    .nav-search{color:rgba(255,255,255,.8);font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer;transition:.2s;}
+    .nav-search:hover{color:#fff;}
+    .nav-donate{background:#fff;color:var(--crimson);font-weight:700;font-size:12px;padding:8px 18px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;border:none;font-family:var(--sans);opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .3s,transform .3s;}
+    .nav-donate.visible{opacity:1;pointer-events:all;transform:translateY(0);}
+    .nav-donate:hover{background:var(--crim-pale);}
+
+    /* ── READING PROGRESS BAR ── */
+    #progress-bar{
+      position:fixed;top:0;left:0;z-index:10001;
+      height:4px;width:0%;
+      background:linear-gradient(90deg,var(--sky),var(--crimson),var(--pink));
+      transition:width .1s linear;
+    }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero{
+      position:relative;
+      height:72vh;min-height:500px;
+      overflow:hidden;
+      display:flex;align-items:flex-end;
+    }
+    .article-hero-img{
+      position:absolute;inset:0;
+      background-image:url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?q=80&w=1800&auto=format&fit=crop');
+      background-size:cover;background-position:center 30%;
+      transform:scale(1.04);
+      animation:heroZoom 12s ease-out forwards;
+    }
+    @keyframes heroZoom{to{transform:scale(1);}}
+    .article-hero-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top, rgba(22,22,22,.92) 0%, rgba(22,22,22,.5) 45%, rgba(22,22,22,.1) 100%);
+    }
+    /* Crimson accent bar on left edge */
+    .article-hero::before{
+      content:'';position:absolute;left:0;top:0;bottom:0;width:6px;
+      background:linear-gradient(to bottom,var(--sky),var(--crimson),var(--pink));
+      z-index:2;
+    }
+    .article-hero-content{
+      position:relative;z-index:2;
+      padding:0 5% 56px;
+      width:100%;
+      max-width:960px;
+      animation:slideUp .9s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    .article-breadcrumb{
+      display:flex;align-items:center;gap:8px;
+      font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      color:rgba(255,255,255,.55);margin-bottom:20px;
+    }
+    .article-breadcrumb a{color:rgba(255,255,255,.55);transition:.2s;}
+    .article-breadcrumb a:hover{color:#fff;}
+    .article-breadcrumb span{color:rgba(255,255,255,.3);}
+    .article-category-pill{
+      display:inline-block;
+      background:var(--crimson);
+      color:#fff;font-size:10.5px;font-weight:700;
+      letter-spacing:.12em;text-transform:uppercase;
+      padding:5px 14px;margin-bottom:18px;
+    }
+    .article-hero h1{
+      font-family:var(--serif);
+      font-size:clamp(30px,4.8vw,62px);
+      font-weight:700;color:#fff;
+      line-height:1.08;
+      margin-bottom:20px;
+      max-width:820px;
+    }
+    .article-hero h1 em{color:var(--pink);font-style:italic;}
+    .article-meta-row{
+      display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+    }
+    .meta-author{display:flex;align-items:center;gap:10px;}
+    .meta-avatar{
+      width:40px;height:40px;border-radius:50%;object-fit:cover;
+      border:2px solid var(--sky);
+    }
+    .meta-author-info{line-height:1.25;}
+    .meta-author-name{font-size:13.5px;font-weight:700;color:#fff;}
+    .meta-author-title{font-size:11.5px;color:rgba(255,255,255,.55);}
+    .meta-divider{width:1px;height:28px;background:rgba(255,255,255,.2);}
+    .meta-item{font-size:12.5px;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:6px;}
+    .meta-item i{font-size:11px;opacity:.7;}
+
+    /* ── COLOR STRIPE ── */
+    .color-stripe{height:5px;background:linear-gradient(90deg,var(--sky) 0%,var(--crimson) 50%,var(--pink) 100%);}
+
+    /* ── MAIN LAYOUT ── */
+    .article-layout{
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:0;
+      max-width:1280px;
+      margin:0 auto;
+      padding:0 5%;
+      align-items:start;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body{
+      padding:60px 64px 60px 0;
+      border-right:1px solid var(--border);
+    }
+
+    /* Lead paragraph */
+    .article-body .lead{
+      font-family:var(--serif);
+      font-size:20px;
+      font-weight:400;
+      font-style:italic;
+      color:var(--black);
+      line-height:1.75;
+      margin-bottom:36px;
+      padding-left:24px;
+      border-left:4px solid var(--crimson);
+    }
+
+    /* Body text */
+    .article-body p{
+      font-size:16px;
+      color:#333;
+      line-height:1.9;
+      margin-bottom:26px;
+    }
+
+    /* Headings */
+    .article-body h2{
+      font-family:var(--serif);
+      font-size:26px;font-weight:700;
+      color:var(--black);
+      margin:48px 0 18px;
+      padding-top:8px;
+      position:relative;
+    }
+    .article-body h2::before{
+      content:'';display:block;width:40px;height:3px;
+      background:var(--sky);margin-bottom:14px;
+    }
+    .article-body h3{
+      font-family:var(--serif);font-size:20px;font-weight:700;
+      color:var(--black);margin:36px 0 14px;
+    }
+
+    /* Pull quote */
+    .pull-quote{
+      margin:48px -24px;
+      padding:36px 48px;
+      background:var(--black);
+      position:relative;overflow:hidden;
+    }
+    .pull-quote::before{
+      content:'\201C';
+      position:absolute;top:-20px;left:24px;
+      font-family:var(--serif);font-size:160px;font-weight:700;
+      color:var(--crimson);opacity:.25;line-height:1;
+    }
+    .pull-quote blockquote{
+      font-family:var(--serif);font-size:22px;font-style:italic;
+      color:#fff;line-height:1.6;
+      position:relative;z-index:1;margin-bottom:14px;
+    }
+    .pull-quote cite{
+      font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--sky);
+    }
+
+    /* Stat callout */
+    .stat-callout{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      margin:44px 0;gap:0;
+    }
+    .sc-item{
+      padding:28px 20px;text-align:center;
+    }
+    .sc-item:nth-child(1){background:var(--sky);}
+    .sc-item:nth-child(2){background:var(--crimson);}
+    .sc-item:nth-child(3){background:var(--pink);}
+    .sc-n{display:block;font-family:var(--serif);font-size:40px;font-weight:700;color:#fff;line-height:1;margin-bottom:6px;}
+    .sc-l{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.85);}
+
+    /* Inline image */
+    .article-img{
+      margin:40px -24px;
+      position:relative;overflow:hidden;
+    }
+    .article-img img{width:100%;height:340px;object-fit:cover;display:block;}
+    .article-img figcaption{
+      padding:12px 24px;background:var(--off);
+      font-size:12.5px;color:var(--muted);
+      border-left:3px solid var(--sky);
+      font-style:italic;
+    }
+
+    /* Highlighted box */
+    .highlight-box{
+      margin:40px 0;
+      padding:28px 32px;
+      border-left:5px solid var(--sky);
+      background:var(--sky-pale);
+    }
+    .highlight-box h4{
+      font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--sky2);margin-bottom:10px;
+    }
+    .highlight-box p{font-size:14.5px;color:var(--black);line-height:1.75;margin:0;}
+
+    /* Crimson highlight box */
+    .highlight-box.cr{border-left-color:var(--crimson);background:var(--crim-pale);}
+    .highlight-box.cr h4{color:var(--crimson);}
+
+    /* Tags */
+    .article-tags{
+      display:flex;flex-wrap:wrap;gap:8px;
+      margin:48px 0 0;padding-top:32px;
+      border-top:1px solid var(--border);
+    }
+    .tag-chip{
+      font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      padding:6px 14px;border:1.5px solid var(--border);color:var(--muted);
+      transition:.2s;cursor:pointer;
+    }
+    .tag-chip:hover{border-color:var(--sky);color:var(--sky);}
+
+    /* Share bar */
+    .share-bar{
+      margin-top:32px;padding:24px 0;
+      border-top:1px solid var(--border);
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    }
+    .share-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:4px;}
+    .share-btn{
+      width:38px;height:38px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:14px;transition:.2s;cursor:pointer;border:none;
+    }
+    .share-btn.fb{background:#1877f2;color:#fff;}
+    .share-btn.tw{background:#000;color:#fff;}
+    .share-btn.li{background:#0a66c2;color:#fff;}
+    .share-btn.wa{background:#25d366;color:#fff;}
+    .share-btn.cp{background:var(--off);color:var(--muted);border:1px solid var(--border);}
+    .share-btn:hover{transform:scale(1.12);}
+
+    /* Author card */
+    .author-card{
+      margin-top:48px;
+      padding:32px;
+      background:var(--off);
+      display:grid;grid-template-columns:80px 1fr;gap:24px;
+      align-items:start;
+      border-top:4px solid var(--crimson);
+    }
+    .author-card img{width:80px;height:80px;border-radius:50%;object-fit:cover;}
+    .author-card h4{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--black);margin-bottom:4px;}
+    .author-card .role{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--crimson);margin-bottom:10px;}
+    .author-card p{font-size:13.5px;color:var(--muted);line-height:1.7;}
+
+    /* ── SIDEBAR ── */
+    .article-sidebar{
+      padding:60px 0 60px 48px;
+      position:sticky;top:70px;
+    }
+
+    .sidebar-widget{margin-bottom:40px;}
+    .sw-title{
+      font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+      margin-bottom:16px;padding-bottom:10px;
+      border-bottom:3px solid var(--sky);
+      color:var(--black);display:inline-block;
+    }
+    .sw-title.cr{border-bottom-color:var(--crimson);}
+    .sw-title.pk{border-bottom-color:var(--pink);}
+
+    /* TOC */
+    .toc-list{list-style:none;}
+    .toc-list li{margin-bottom:0;}
+    .toc-list a{
+      display:flex;align-items:center;gap:10px;
+      font-size:13.5px;color:var(--muted);
+      padding:8px 0;border-bottom:1px solid var(--border);
+      transition:.2s;
+    }
+    .toc-list a::before{
+      content:'';width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;transition:.2s;
+    }
+    .toc-list a:hover{color:var(--sky);}
+    .toc-list a:hover::before{background:var(--sky);}
+    .toc-list a.active-toc{color:var(--sky);font-weight:600;}
+    .toc-list a.active-toc::before{background:var(--sky);}
+
+    /* Donate widget */
+    .donate-widget{
+      background:var(--crimson);
+      padding:28px 24px;
+      text-align:center;
+    }
+    .donate-widget h3{font-family:var(--serif);font-size:19px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3;}
+    .donate-widget p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.65;margin-bottom:20px;}
+    .donate-widget-btn{
+      display:block;width:100%;
+      background:#fff;color:var(--crimson);font-weight:700;font-size:13.5px;
+      padding:13px;letter-spacing:.05em;text-transform:uppercase;
+      border:none;cursor:pointer;font-family:var(--sans);transition:.2s;
+    }
+    .donate-widget-btn:hover{background:var(--crim-pale);}
+    .donate-widget-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:12px;}
+
+    /* Related posts */
+    .related-post{
+      display:grid;grid-template-columns:72px 1fr;gap:12px;
+      padding:14px 0;border-bottom:1px solid var(--border);
+      cursor:pointer;transition:.2s;
+    }
+    .related-post:last-child{border-bottom:none;}
+    .related-post:hover .rp-title{color:var(--sky);}
+    .related-post img{width:72px;height:56px;object-fit:cover;}
+    .rp-cat{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin-bottom:4px;}
+    .rp-title{font-size:13px;font-weight:700;color:var(--black);line-height:1.35;transition:.2s;}
+    .rp-date{font-size:11.5px;color:var(--muted2);margin-top:4px;}
+
+    /* Newsletter widget */
+    .nl-widget{
+      background:var(--sky2);
+      padding:24px;
+    }
+    .nl-widget h3{font-family:var(--serif);font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;}
+    .nl-widget p{font-size:12.5px;color:rgba(255,255,255,.75);margin-bottom:14px;line-height:1.55;}
+    .nl-input{
+      width:100%;padding:11px 14px;border:none;outline:none;
+      font-family:var(--sans);font-size:13.5px;margin-bottom:8px;
+      color:var(--black);
+    }
+    .nl-input::placeholder{color:#aaa;}
+    .nl-btn{
+      width:100%;padding:11px;background:var(--crimson);color:#fff;
+      font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;
+      border:none;cursor:pointer;font-family:var(--sans);transition:.2s;
+    }
+    .nl-btn:hover{background:var(--crim-dark);}
+
+    /* ── RELATED ARTICLES SECTION ── */
+    .related-sec{
+      background:var(--off);
+      padding:72px 5%;
+    }
+    .related-sec-title{
+      font-family:var(--serif);font-size:28px;font-weight:700;
+      color:var(--black);margin-bottom:8px;
+    }
+    .related-sec-sub{font-size:13px;color:var(--muted);margin-bottom:40px;}
+    .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+    .rc{overflow:hidden;border:1px solid var(--border);border-right:none;transition:.3s;position:relative;background:#fff;}
+    .rc:last-child{border-right:1px solid var(--border);}
+    .rc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;opacity:0;transition:.3s;}
+    .rc:nth-child(1)::after{background:var(--sky);}
+    .rc:nth-child(2)::after{background:var(--crimson);}
+    .rc:nth-child(3)::after{background:var(--pink);}
+    .rc:hover::after{opacity:1;}
+    .rc:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.1);}
+    .rc-thumb{height:190px;overflow:hidden;}
+    .rc-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+    .rc:hover .rc-thumb img{transform:scale(1.06);}
+    .rc-body{padding:22px;}
+    .rc-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px;}
+    .rc-tag.sky{color:var(--sky2);background:var(--sky-pale);}
+    .rc-tag.cr{color:var(--crimson);background:var(--crim-pale);}
+    .rc-tag.pk{color:var(--pink2);background:var(--pink-pale);}
+    .rc-body h3{font-family:var(--serif);font-size:16px;color:var(--black);margin-bottom:8px;line-height:1.3;}
+    .rc-body p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+    .rc-foot{font-size:11.5px;color:var(--muted2);}
+
+    /* ── DONATE MODAL ── */
+    .modal-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s;}
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+    .modal{background:#fff;width:100%;max-width:860px;display:grid;grid-template-columns:1fr 1fr;border-radius:4px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.3);transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.16,1,.3,1);max-height:92vh;overflow-y:auto;}
+    .modal-overlay.open .modal{transform:translateY(0) scale(1);}
+    .modal-left{position:relative;min-height:380px;}
+    .modal-left img{width:100%;height:100%;object-fit:cover;display:block;}
+    .modal-left-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,125,158,.5) 0%,rgba(192,57,43,.55) 100%);}
+    .modal-left-content{position:absolute;bottom:0;left:0;right:0;padding:32px 28px;}
+    .modal-logo{width:52px;height:52px;background:var(--sky);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+    .modal-logo i{color:#fff;font-size:22px;}
+    .modal-left-content h2{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.25;}
+    .modal-left-content p{font-size:13.5px;color:rgba(255,255,255,.85);line-height:1.65;}
+    .modal-right{padding:36px 32px;display:flex;flex-direction:column;gap:20px;}
+    .modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--black);transition:.2s;z-index:2;}
+    .modal-close:hover{background:#fff;transform:scale(1.1);}
+    .modal-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--black);margin-bottom:4px;}
+    .modal-subtitle{font-size:13px;color:var(--muted);}
+    .freq-tabs{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--border);border-radius:3px;overflow:hidden;}
+    .freq-tab{padding:11px 8px;text-align:center;font-size:13.5px;font-weight:700;cursor:pointer;transition:.2s;border:none;background:#fff;font-family:var(--sans);color:var(--muted);}
+    .freq-tab.active{background:var(--sky);color:#fff;}
+    .freq-tab:first-child{border-right:2px solid var(--border);}
+    .amount-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+    .amt-btn{padding:12px 8px;text-align:center;font-size:15px;font-weight:700;border:2px solid var(--border);background:#fff;cursor:pointer;transition:.2s;border-radius:2px;font-family:var(--sans);color:var(--black);}
+    .amt-btn:hover{border-color:var(--sky);color:var(--sky);}
+    .amt-btn.active{border-color:var(--sky);background:var(--sky-pale);color:var(--sky2);}
+    .custom-amount-wrap{position:relative;border:2px solid var(--border);border-radius:2px;display:flex;align-items:center;}
+    .custom-amount-wrap.focused{border-color:var(--sky);}
+    .currency-prefix{padding:12px 14px;font-size:16px;font-weight:700;color:var(--black);}
+    .custom-amount-input{flex:1;border:none;outline:none;font-size:16px;font-weight:700;padding:12px 14px 12px 0;font-family:var(--sans);color:var(--black);background:transparent;}
+    .currency-suffix{padding:12px 14px;font-size:13px;color:var(--muted);font-weight:600;}
+    .dedicate-row{display:flex;align-items:center;gap:10px;cursor:pointer;}
+    .dedicate-row input[type="checkbox"]{width:18px;height:18px;accent-color:var(--sky);cursor:pointer;}
+    .dedicate-row label{font-size:13.5px;color:var(--black);cursor:pointer;}
+    .donate-cta-btn{background:var(--sky);color:#fff;font-weight:700;font-size:15px;padding:16px;text-align:center;border:none;cursor:pointer;font-family:var(--sans);letter-spacing:.04em;transition:.2s;border-radius:2px;}
+    .donate-cta-btn:hover{background:var(--sky2);}
+    .secure-badge{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--muted);}
+    .secure-badge i{color:#27ae60;font-size:14px;}
+
+    /* ── SEARCH OVERLAY ── */
+    .search-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;flex-direction:column;align-items:center;padding:80px 20px 40px;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .search-overlay.open{opacity:1;pointer-events:all;}
+    .search-box{width:100%;max-width:680px;background:#fff;display:flex;align-items:center;padding:4px 4px 4px 20px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+    .search-box input{flex:1;border:none;outline:none;font-size:18px;font-family:var(--sans);padding:12px 0;color:var(--black);background:transparent;}
+    .search-box input::placeholder{color:#aaa;}
+    .search-submit{background:var(--sky);color:#fff;border:none;cursor:pointer;padding:14px 20px;font-size:18px;transition:.2s;}
+    .search-submit:hover{background:var(--sky2);}
+    .search-close{position:absolute;top:24px;right:28px;background:transparent;border:none;color:#fff;font-size:28px;cursor:pointer;opacity:.7;transition:.2s;}
+    .search-close:hover{opacity:1;}
+    .search-results{width:100%;max-width:680px;margin-top:16px;}
+    .search-result-item{background:#fff;padding:18px 20px;margin-bottom:8px;cursor:pointer;transition:.2s;border-left:4px solid transparent;}
+    .search-result-item:hover{border-left-color:var(--sky);}
+    .search-result-item h4{font-size:15px;font-weight:700;color:var(--black);margin-bottom:4px;}
+    .search-result-item p{font-size:13px;color:var(--muted);}
+    .search-result-item .tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sky2);margin-bottom:6px;display:block;}
+    .search-no-results{color:rgba(255,255,255,.7);font-size:15px;padding:20px 0;text-align:center;}
+
+    /* ── FOOTER ── */
+    footer{background:#0f1618;color:rgba(255,255,255,.5);}
+    .faccent{height:4px;background:linear-gradient(90deg,var(--sky) 0%,var(--crimson) 50%,var(--pink) 100%);}
+    .ftop{padding:56px 5% 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
+    .flogo p{font-size:13.5px;line-height:1.8;color:rgba(255,255,255,.38);margin-top:12px;}
+    .flogo-name{font-family:var(--serif);font-size:21px;font-weight:700;color:#fff;}
+    .flogo-name span{color:var(--pink);}
+    .fcol h4{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
+    .fcol h4.sky{color:var(--sky);}
+    .fcol h4.pk{color:var(--pink);}
+    .fcol h4.cr{color:#e87a72;}
+    .fcol ul{list-style:none;}
+    .fcol li{margin-bottom:9px;}
+    .fcol a{font-size:13.5px;color:rgba(255,255,255,.42);transition:color .2s;}
+    .fcol a:hover{color:#fff;}
+    .fbot{padding:16px 5%;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:8px;}
+    .fbot a{color:rgba(255,255,255,.28);margin-left:14px;transition:color .2s;}
+    .fbot a:hover{color:#fff;}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .article-layout{grid-template-columns:1fr;}
+      .article-body{padding:48px 0;border-right:none;}
+      .article-sidebar{padding:0 0 48px;position:static;}
+      .related-grid{grid-template-columns:1fr 1fr;}
+      .ftop{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none;}
+      .article-hero h1{font-size:clamp(26px,6vw,42px);}
+      .pull-quote{margin:36px 0;}
+      .stat-callout{grid-template-columns:1fr;}
+      .article-img{margin:32px 0;}
+      .related-grid{grid-template-columns:1fr;}
+      .rc{border-right:1px solid var(--border)!important;}
+      .modal{grid-template-columns:1fr;}
+      .modal-left{min-height:200px;}
+      .ftop{grid-template-columns:1fr;}
+    }
+    @media(max-width:480px){
+      .meta-divider{display:none;}
+      .author-card{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress bar -->
+  <div id="progress-bar"></div>
+
+  <!-- ── DONATE MODAL ── -->
+  <div class="modal-overlay" id="donateModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-left">
+        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=900&auto=format&fit=crop" alt="">
+        <div class="modal-left-overlay"></div>
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-left-content">
+          <div class="modal-logo"><i class="fa-solid fa-children"></i></div>
+          <h2>Save the Life of a Child Today</h2>
+          <p>Your donation ensures the world's most vulnerable children get what they need to thrive. <strong style="color:#fff;">Make a difference today.</strong></p>
+        </div>
+      </div>
+      <div class="modal-right">
+        <div><div class="modal-title">Make a Donation</div><div class="modal-subtitle">Secure · Tax-deductible · Transparent</div></div>
+        <div class="freq-tabs"><button class="freq-tab active">Give once</button><button class="freq-tab">♥ Monthly</button></div>
+        <div class="amount-grid" id="amountGrid">
+          <button class="amt-btn" data-amount="20">$20</button>
+          <button class="amt-btn" data-amount="40">$40</button>
+          <button class="amt-btn" data-amount="75">$75</button>
+          <button class="amt-btn active" data-amount="120">$120</button>
+          <button class="amt-btn" data-amount="250">$250</button>
+          <button class="amt-btn" data-amount="1000">$1,000</button>
+        </div>
+        <div class="custom-amount-wrap" id="customWrap"><span class="currency-prefix">$</span><input class="custom-amount-input" id="customAmount" type="number" value="120" min="1"><span class="currency-suffix">USD</span></div>
+        <label class="dedicate-row"><input type="checkbox"><span>Dedicate this donation</span></label>
+        <button class="donate-cta-btn" id="donateCTABtn">Donate</button>
+        <div class="secure-badge"><i class="fa-solid fa-lock"></i><span>Secure donation — SSL encrypted</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEARCH OVERLAY ── -->
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true">
+    <button class="search-close" id="searchClose">&times;</button>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search programs, stories, events…" autocomplete="off">
+      <button class="search-submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <!-- ── TOPBAR ── -->
+  <div class="topbar">
+    <span>Empowering communities. Changing lives for over 20 years.</span>
+    <a onclick="openDonate()">Donate Now →</a>
+  </div>
+
+  <!-- ── TICKER ── -->
+  <div class="ticker">
+    <div class="tinner">
+      <span>Education outreach reaches 5,000 children across West Africa</span>
+      <span class="accent">Emergency food support expanded across 12 communities</span>
+      <span>New child protection initiative launched globally</span>
+      <span class="accent">Health and sanitation project begins this month</span>
+      <span>50 children reintegrated into families this quarter</span>
+    </div>
+  </div>
+
+  <!-- ── HEADER ── -->
+  <div class="site-header">
+    <a href="index.html" class="logo"><img src="gsk_logo.png" alt="GSK Initiative" onerror="this.style.display='none'"></a>
+    <div class="hd-right">
+      <div class="hd-meta">
+        <span>Registered Charity · Est. 2006</span>
+        <span>info@gskinitiative.org</span>
+      </div>
+      <button class="hd-donate" onclick="openDonate()">Donate Now</button>
+    </div>
+  </div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="#">Programs</a>
+      <a href="#">Stories</a>
+      <a href="#" class="active">Blog</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-search" id="navSearchBtn">⌕ Search</div>
+      <button class="nav-donate" id="navDonateBtn" onclick="openDonate()">Donate Now</button>
+    </div>
+  </nav>
+
+  <!-- ── ARTICLE HERO ── -->
+  <div class="article-hero">
+    <div class="article-hero-img"></div>
+    <div class="article-hero-overlay"></div>
+    <div class="article-hero-content">
+      <div class="article-breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="#">Blog</a>
+        <span>/</span>
+        <span style="color:rgba(255,255,255,.85);">Education</span>
+      </div>
+      <div class="article-category-pill">Education</div>
+      <h1>How Education Changes<br><em>Everything</em> for a Child</h1>
+      <div class="article-meta-row">
+        <div class="meta-author">
+          <img class="meta-avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=120&auto=format&fit=crop" alt="Amara Okonkwo">
+          <div class="meta-author-info">
+            <div class="meta-author-name">Amara Okonkwo</div>
+            <div class="meta-author-title">Executive Director</div>
+          </div>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item"><i class="fa-regular fa-calendar"></i> April 2, 2026</div>
+        <div class="meta-divider"></div>
+        <div class="meta-item"><i class="fa-regular fa-clock"></i> 7 min read</div>
+        <div class="meta-divider"></div>
+        <div class="meta-item"><i class="fa-regular fa-eye"></i> 3,241 views</div>
+      </div>
+    </div>
+  </div>
+  <div class="color-stripe"></div>
+
+  <!-- ── ARTICLE LAYOUT ── -->
+  <div class="article-layout">
+
+    <!-- BODY -->
+    <main class="article-body" id="article-body">
+
+      <p class="lead">When a child sits down in a classroom for the first time, something shifts — not just for that child, but for their family, their community, and the next generation that will follow them. At GSK Initiative, we have witnessed this transformation hundreds of times. And each time, it confirms what the evidence has always shown: education is the most powerful, lasting force for change we possess.</p>
+
+      <p>Over the past two decades working with street-connected children across West Africa, we have seen the full spectrum of vulnerability — children sleeping under bridges, children who have never held a pencil, children whose families believe schooling is a luxury they cannot afford. What has always struck us is not the scale of the problem, but the speed with which education begins to resolve it.</p>
+
+      <p>This post is about what we have learned, what the data tells us, and why your support of our education programmes creates ripple effects that last for generations.</p>
+
+      <h2 id="s1">The Scale of the Challenge</h2>
+
+      <p>Sub-Saharan Africa is home to more than 98 million out-of-school children — the highest concentration anywhere in the world. In Nigeria alone, an estimated 10.5 million children of primary school age are not in school. Among street-connected children, the figure rises sharply: fewer than one in five have consistent access to formal education.</p>
+
+      <p>The causes are layered. Poverty forces families to prioritise immediate income over long-term schooling. Conflict displaces children from educational structures. Stigma keeps children who have experienced street life from re-entering mainstream classrooms. And inadequate infrastructure means that even when schools exist, they are often overcrowded, under-resourced, and out of reach.</p>
+
+      <div class="stat-callout">
+        <div class="sc-item"><span class="sc-n">98M+</span><span class="sc-l">Out-of-school children in Sub-Saharan Africa</span></div>
+        <div class="sc-item"><span class="sc-n">10.5M</span><span class="sc-l">Primary-age children not in school in Nigeria</span></div>
+        <div class="sc-item"><span class="sc-n">78%</span><span class="sc-l">GSK retention rate after 12 months</span></div>
+      </div>
+
+      <h2 id="s2">What Happens When a Child Enters a Classroom</h2>
+
+      <p>The first thing we observe — consistently, across communities — is a change in posture. Not metaphorically, but literally. Children who have spent months or years on the street carry themselves in a particular way: shoulders hunched, eyes down, always scanning for the next threat. Within weeks of joining our learning centres, we watch that posture change. The shoulders lift. The eyes meet yours.</p>
+
+      <figure class="article-img">
+        <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1200&auto=format&fit=crop" alt="Children in a GSK Initiative learning centre">
+        <figcaption>Children at a GSK Initiative learning centre in Lagos — many attending formal education for the first time.</figcaption>
+      </figure>
+
+      <p>This is not anecdotal. Our internal monitoring data shows that after three months in our programme, 84% of children report feeling safer, 79% say they feel respected by adults, and 91% express an intention to remain in school. These numbers matter because sustained attendance — what educators call "school persistence" — is the single most reliable predictor of long-term educational outcomes.</p>
+
+      <div class="pull-quote">
+        <blockquote>"Before GSK found me, I thought school was for other children — not for someone like me. Now I want to be a doctor. And I believe it is possible."</blockquote>
+        <cite>— Emeka, 14, Lagos State</cite>
+      </div>
+
+      <h2 id="s3">Our Approach to Education</h2>
+
+      <p>At GSK Initiative, we do not simply enrol children into existing schools and hope for the best. We recognise that children coming from street situations often have gaps in learning, unresolved trauma, and practical barriers — no uniform, no materials, no trust in institutions — that standard schooling does not address.</p>
+
+      <p>Our education model operates in three interconnected phases:</p>
+
+      <h3>Phase 1: Transitional Learning Centres</h3>
+      <p>Before entering mainstream school, children join a transitional learning centre where they receive literacy and numeracy catch-up classes, psychosocial support, and one-on-one mentorship. This typically lasts between two and four months and is designed to build the confidence and academic foundation they need to transition successfully.</p>
+
+      <h3>Phase 2: School Enrolment & Material Support</h3>
+      <p>We partner with local public schools to facilitate re-enrolment, covering the cost of uniforms, textbooks, and exam fees. Our field officers make regular school visits to track attendance, address problems early, and liaise between families, teachers, and the children themselves.</p>
+
+      <h3>Phase 3: Mentorship & Long-term Follow-up</h3>
+      <p>Enrolment alone is not success. We maintain follow-up contact with every child in our programme for a minimum of 24 months after school entry, providing mentors who meet with children monthly and respond to emerging challenges before they become dropout risks.</p>
+
+      <div class="highlight-box">
+        <h4>Programme Result: 2025 Cohort</h4>
+        <p>Of 312 children enrolled in our 2025 education cohort, 243 (78%) remained in school after 12 months — compared to a national average retention rate of 51% for children who re-enter from street situations without support.</p>
+      </div>
+
+      <h2 id="s4">Beyond the Child: Community-wide Impact</h2>
+
+      <p>The economic literature on education is unambiguous: each additional year of schooling increases an individual's earnings by 8–10% on average. For families living in poverty, this is transformative. When a child eventually enters formal employment — in a decade's time — they lift not just themselves but often multiple family members with them.</p>
+
+      <p>But the benefits arrive long before then. We have documented consistent patterns in our programme communities: families with children enrolled in education are more likely to access health services, more likely to engage in community savings groups, and less likely to experience domestic conflict. Education, it turns out, changes the social fabric of a household, not just the prospects of the child.</p>
+
+      <div class="highlight-box cr">
+        <h4>Did You Know?</h4>
+        <p>UNESCO estimates that if all children in low-income countries left school with basic reading skills, 171 million people could be lifted out of poverty — equivalent to a 12% fall in global poverty.</p>
+      </div>
+
+      <h2 id="s5">How You Can Help</h2>
+
+      <p>Our education programme costs approximately $180 per child per year to deliver — covering transitional learning, school materials, uniform, exam fees, and 24 months of mentorship follow-up. That is less than 50 cents a day to give a child a genuine shot at a different future.</p>
+
+      <p>Donations to GSK Initiative are tax-deductible and go directly to programme delivery. We publish annual audited accounts and impact reports, and every major donor receives a personalised update on the children their contribution has supported.</p>
+
+      <p>If you believe — as we do — that education is the most powerful investment we can make in a child's future, we would be honoured to have you alongside us.</p>
+
+      <!-- Tags -->
+      <div class="article-tags">
+        <span class="tag-chip">Education</span>
+        <span class="tag-chip">Children</span>
+        <span class="tag-chip">West Africa</span>
+        <span class="tag-chip">Impact</span>
+        <span class="tag-chip">Street Children</span>
+        <span class="tag-chip">Nigeria</span>
+      </div>
+
+      <!-- Share bar -->
+      <div class="share-bar">
+        <span class="share-label">Share</span>
+        <button class="share-btn fb" title="Facebook"><i class="fa-brands fa-facebook-f"></i></button>
+        <button class="share-btn tw" title="X/Twitter"><i class="fa-brands fa-x-twitter"></i></button>
+        <button class="share-btn li" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></button>
+        <button class="share-btn wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+        <button class="share-btn cp" title="Copy link" id="copyLinkBtn"><i class="fa-regular fa-copy"></i></button>
+      </div>
+
+      <!-- Author card -->
+      <div class="author-card">
+        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&auto=format&fit=crop" alt="Amara Okonkwo">
+        <div>
+          <h4>Amara Okonkwo</h4>
+          <div class="role">Executive Director & Founder, GSK Initiative</div>
+          <p>A social entrepreneur with 20+ years fighting for child rights across West Africa. Amara founded GSK Initiative in 2006 and leads the organisation's strategic vision, field operations, and global partnerships.</p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="article-sidebar">
+
+      <!-- Donate widget -->
+      <div class="sidebar-widget donate-widget">
+        <h3>Give a Child a Future Today</h3>
+        <p>$180 funds one child's full education journey — transitional learning, school materials, and 24 months of mentorship.</p>
+        <button class="donate-widget-btn" onclick="openDonate()">Donate Now</button>
+        <div class="donate-widget-sub">Secure · Tax-deductible · 100% to programmes</div>
+      </div>
+
+      <!-- Table of Contents -->
+      <div class="sidebar-widget">
+        <div class="sw-title">In This Article</div>
+        <ul class="toc-list" id="toc">
+          <li><a href="#s1" class="toc-link">The Scale of the Challenge</a></li>
+          <li><a href="#s2" class="toc-link">What Happens in a Classroom</a></li>
+          <li><a href="#s3" class="toc-link">Our Education Approach</a></li>
+          <li><a href="#s4" class="toc-link">Community-wide Impact</a></li>
+          <li><a href="#s5" class="toc-link">How You Can Help</a></li>
+        </ul>
+      </div>
+
+      <!-- Related posts -->
+      <div class="sidebar-widget">
+        <div class="sw-title cr">Related Stories</div>
+        <div class="related-post">
+          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=200&auto=format&fit=crop" alt="">
+          <div>
+            <div class="rp-cat">Advocacy</div>
+            <div class="rp-title">GSK Joins Global Coalition on Child Rights</div>
+            <div class="rp-date">January 2026</div>
+          </div>
+        </div>
+        <div class="related-post">
+          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=200&auto=format&fit=crop" alt="">
+          <div>
+            <div class="rp-cat">Empowerment</div>
+            <div class="rp-title">New Vocational Centre Opens in Ibadan</div>
+            <div class="rp-date">February 2026</div>
+          </div>
+        </div>
+        <div class="related-post">
+          <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=200&auto=format&fit=crop" alt="">
+          <div>
+            <div class="rp-cat">Health</div>
+            <div class="rp-title">Community Health Outreach Reaches 3,000 Families</div>
+            <div class="rp-date">March 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="nl-widget">
+        <h3>Stay in the Loop</h3>
+        <p>Get our latest stories, impact reports, and updates delivered to your inbox.</p>
+        <input class="nl-input" type="email" placeholder="Your email address">
+        <button class="nl-btn">Subscribe</button>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ── RELATED ARTICLES SECTION ── -->
+  <section class="related-sec">
+    <div class="related-sec-title">More from the Blog</div>
+    <div class="related-sec-sub">Continue reading — stories, insights, and updates from our field teams.</div>
+    <div class="related-grid">
+      <article class="rc">
+        <div class="rc-thumb"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=700&auto=format&fit=crop" alt="" loading="lazy"></div>
+        <div class="rc-body">
+          <span class="rc-tag sky">Advocacy</span>
+          <h3>Why Child Rights Must Be at the Heart of Policy</h3>
+          <p>A look at our advocacy work at the African Union and what it means for street-connected children across the continent.</p>
+          <div class="rc-foot">March 2026 · 5 min read</div>
+        </div>
+      </article>
+      <article class="rc">
+        <div class="rc-thumb"><img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=700&auto=format&fit=crop" alt="" loading="lazy"></div>
+        <div class="rc-body">
+          <span class="rc-tag cr">Empowerment</span>
+          <h3>From the Street to the Workshop: A Vocational Success Story</h3>
+          <p>How 18-year-old Tunde went from sleeping under a bridge to completing his carpentry certification — and what it took to get there.</p>
+          <div class="rc-foot">February 2026 · 6 min read</div>
+        </div>
+      </article>
+      <article class="rc">
+        <div class="rc-thumb"><img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=700&auto=format&fit=crop" alt="" loading="lazy"></div>
+        <div class="rc-body">
+          <span class="rc-tag pk">Health</span>
+          <h3>Clean Water, Healthy Children: Our Sanitation Drive</h3>
+          <p>Our health team's multi-state sanitation project and what we learned about the relationship between health and school attendance.</p>
+          <div class="rc-foot">January 2026 · 4 min read</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="faccent"></div>
+    <div class="ftop">
+      <div class="flogo">
+        <div class="flogo-name">GSK <span>Initiative</span></div>
+        <p>A non-profit organisation dedicated to improving the lives of street-connected and vulnerable children through education, reintegration, and advocacy.</p>
+      </div>
+      <div class="fcol"><h4 class="sky">Organisation</h4><ul><li><a href="about.html">About Us</a></li><li><a href="#">Our Team</a></li><li><a href="#">Annual Reports</a></li><li><a href="#">Partners</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div class="fcol"><h4 class="pk">Programs</h4><ul><li><a href="#">Education</a></li><li><a href="#">Advocacy</a></li><li><a href="#">Empowerment</a></li><li><a href="#">Vocational Training</a></li><li><a href="#">Family Support</a></li></ul></div>
+      <div class="fcol"><h4 class="cr">Get Involved</h4><ul><li><a href="#" onclick="openDonate();return false;">Donate</a></li><li><a href="#">Volunteer</a></li><li><a href="#">Partner With Us</a></li><li><a href="#">Contact</a></li><li><a href="#">Press</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 GSK Initiative. All rights reserved. Registered Charity.</span>
+      <div><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Accessibility</a></div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── READING PROGRESS ── */
+    const progressBar = document.getElementById('progress-bar');
+    const articleBody = document.getElementById('article-body');
+    window.addEventListener('scroll', () => {
+      const bodyTop = articleBody.getBoundingClientRect().top + window.scrollY;
+      const bodyH   = articleBody.offsetHeight;
+      const scrolled = window.scrollY - bodyTop;
+      const pct = Math.min(Math.max(scrolled / bodyH * 100, 0), 100);
+      progressBar.style.width = pct + '%';
+    }, { passive: true });
+
+    /* ── STICKY NAV + DONATE ── */
+    const mainNav = document.getElementById('mainNav');
+    const navDonateBtn = document.getElementById('navDonateBtn');
+    const siteHeader = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      const hb = siteHeader.getBoundingClientRect().bottom;
+      navDonateBtn.classList.toggle('visible', hb < 0);
+      mainNav.classList.toggle('scrolled', hb < 0);
+    }, { passive: true });
+
+    /* ── ACTIVE TOC ── */
+    const sections = ['s1','s2','s3','s4','s5'];
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('active-toc'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active-toc');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    /* ── COPY LINK ── */
+    document.getElementById('copyLinkBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.getElementById('copyLinkBtn');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        btn.style.background = '#27ae60';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    });
+
+    /* ── DONATE MODAL ── */
+    const donateModal = document.getElementById('donateModal');
+    function openDonate() { donateModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeDonate() { donateModal.classList.remove('open'); document.body.style.overflow = ''; }
+    document.getElementById('modalClose').addEventListener('click', closeDonate);
+    donateModal.addEventListener('click', e => { if (e.target === donateModal) closeDonate(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDonate(); closeSearch(); } });
+
+    document.querySelectorAll('.amt-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('customAmount').value = btn.dataset.amount;
+      });
+    });
+    const customInput = document.getElementById('customAmount');
+    const customWrap = document.getElementById('customWrap');
+    customInput.addEventListener('focus', () => { customWrap.classList.add('focused'); document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('active')); });
+    document.querySelectorAll('.freq-tab').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.freq-tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); }); });
+    const donateCTABtn = document.getElementById('donateCTABtn');
+    donateCTABtn.addEventListener('click', () => {
+      donateCTABtn.textContent = '✓ Thank you!'; donateCTABtn.style.background = '#27ae60';
+      setTimeout(() => { donateCTABtn.textContent = 'Donate'; donateCTABtn.style.background = ''; closeDonate(); }, 2000);
+    });
+
+    /* ── SEARCH ── */
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const siteContent = [
+      { tag: 'Program', title: 'Advocacy', body: 'Amplifying the rights and welfare of vulnerable children.' },
+      { tag: 'Program', title: 'Education', body: 'Connecting street children to quality learning.' },
+      { tag: 'Program', title: 'Empowerment', body: 'Building confidence and life skills for children.' },
+      { tag: 'Program', title: 'Vocational Training', body: 'Practical skills training for adolescents and youth.' },
+      { tag: 'Blog', title: 'How Education Changes Everything for a Child', body: 'The transformative power of education for street-connected children in West Africa.' },
+      { tag: 'Blog', title: 'Why Child Rights Must Be at the Heart of Policy', body: 'Advocacy work at the African Union and beyond.' },
+      { tag: 'Blog', title: 'From the Street to the Workshop', body: 'Vocational training success stories from Ibadan.' },
+      { tag: 'About', title: 'About GSK Initiative', body: 'Non-profit dedicated to improving lives of vulnerable children. Est. 2006.' },
+      { tag: 'Get Involved', title: 'Donate to GSK Initiative', body: 'Every contribution gives a child a fighting chance.' },
+    ];
+    function openSearch() { searchOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; setTimeout(() => searchInput.focus(), 100); renderResults(''); }
+    function closeSearch() { searchOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+    document.getElementById('navSearchBtn').addEventListener('click', openSearch);
+    document.getElementById('searchClose').addEventListener('click', closeSearch);
+    searchOverlay.addEventListener('click', e => { if (e.target === searchOverlay) closeSearch(); });
+    function renderResults(q) {
+      q = q.trim().toLowerCase();
+      if (!q) { searchResults.innerHTML = ''; return; }
+      const m = siteContent.filter(i => i.title.toLowerCase().includes(q) || i.body.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q));
+      if (!m.length) { searchResults.innerHTML = `<div class="search-no-results">No results for "<strong style="color:#fff">${q}</strong>"</div>`; return; }
+      searchResults.innerHTML = m.map(i => `<div class="search-result-item" onclick="closeSearch()"><span class="tag">${i.tag}</span><h4>${i.title}</h4><p>${i.body}</p></div>`).join('');
+    }
+    searchInput.addEventListener('input', () => renderResults(searchInput.value));
+  </script>
+</body>
+</html>

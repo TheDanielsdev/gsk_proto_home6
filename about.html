@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — GSK Initiative</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --sky:#2e9dbf;
+      --sky2:#1a7d9e;
+      --sky-pale:#edf7fb;
+      --crimson:#c0392b;
+      --crim-dark:#9b2d1f;
+      --crim-pale:#fef2f1;
+      --pink:#d4607a;
+      --pink2:#b84d67;
+      --pink-pale:#fdf0f3;
+      --black:#161616;
+      --white:#fff;
+      --off:#f8f8f6;
+      --muted:#666;
+      --border:#e8e8e8;
+      --serif:'Lora',Georgia,serif;
+      --sans:'Outfit',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);color:var(--black);background:var(--white);line-height:1.6;overflow-x:hidden;}
+    a{text-decoration:none;color:inherit;}
+    img{display:block;max-width:100%;}
+
+    /* ── TOPBAR ── */
+    .topbar{background:var(--sky2);padding:8px 5%;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.8);}
+    .topbar a{color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.4);cursor:pointer;}
+
+    /* ── TICKER ── */
+    .ticker{background:var(--black);overflow:hidden;white-space:nowrap;}
+    .tinner{display:inline-block;padding:9px 0;animation:rt 32s linear infinite;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.02em;}
+    .ticker:hover .tinner{animation-play-state:paused;}
+    .tinner span{margin-right:64px;}
+    .tinner span::before{content:'— ';}
+    .tinner span.accent{color:var(--pink);}
+    @keyframes rt{from{transform:translateX(100vw);}to{transform:translateX(-100%);}}
+
+    /* ── HEADER ── */
+    .site-header{background:var(--white);border-bottom:4px solid var(--sky);display:flex;align-items:center;justify-content:space-between;padding:16px 5%;}
+    .logo img{height:56px;width:auto;}
+    .hd-right{display:flex;align-items:center;gap:32px;}
+    .hd-meta{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+    .hd-meta span{font-size:11px;color:var(--muted);font-weight:500;}
+    .hd-donate{background:var(--crimson);color:#fff;font-weight:700;font-size:13px;padding:12px 26px;letter-spacing:.05em;text-transform:uppercase;transition:.2s;cursor:pointer;border:none;font-family:var(--sans);}
+    .hd-donate:hover{background:var(--crim-dark);transform:translateY(-1px);}
+
+    /* ── NAV ── */
+    .nav{background:var(--sky);position:sticky;top:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:52px;transition:box-shadow .3s;}
+    .nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.18);}
+    .nav-links{display:flex;align-items:center;}
+    .nav-links a{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.85);padding:8px 16px;transition:.15s;letter-spacing:.01em;}
+    .nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.15);}
+    .nav-right{display:flex;align-items:center;gap:12px;}
+    .nav-search{color:rgba(255,255,255,.8);font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer;transition:.2s;}
+    .nav-search:hover{color:#fff;}
+    .nav-donate{background:#fff;color:var(--crimson);font-weight:700;font-size:12px;padding:8px 18px;letter-spacing:.05em;text-transform:uppercase;transition:opacity .3s,transform .3s;cursor:pointer;border:none;font-family:var(--sans);opacity:0;pointer-events:none;transform:translateY(-6px);}
+    .nav-donate.visible{opacity:1;pointer-events:all;transform:translateY(0);}
+    .nav-donate:hover{background:var(--crim-pale);}
+
+    /* ── PAGE HERO ── */
+    .page-hero{
+      position:relative;
+      background:var(--sky2);
+      overflow:hidden;
+      min-height:440px;
+      display:flex;align-items:flex-end;
+    }
+    .page-hero-bg{
+      position:absolute;inset:0;
+      background-image:url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;background-position:center 30%;
+      opacity:.22;
+    }
+    /* Bold color block geometry */
+    .page-hero-geo{
+      position:absolute;inset:0;
+    }
+    .geo-sky{
+      position:absolute;top:0;left:0;width:55%;height:100%;
+      background:var(--sky2);
+      clip-path:polygon(0 0,100% 0,80% 100%,0 100%);
+    }
+    .geo-crimson{
+      position:absolute;top:0;left:38%;width:38%;height:100%;
+      background:var(--crimson);
+      clip-path:polygon(20% 0,100% 0,80% 100%,0 100%);
+    }
+    .geo-pink{
+      position:absolute;top:0;right:0;width:32%;height:100%;
+      background:var(--pink);
+      clip-path:polygon(20% 0,100% 0,100% 100%,0 100%);
+    }
+    .page-hero-content{
+      position:relative;z-index:2;
+      padding:64px 5% 52px;
+      width:100%;
+    }
+    .breadcrumb{
+      display:flex;align-items:center;gap:8px;
+      font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      color:rgba(255,255,255,.65);margin-bottom:20px;
+    }
+    .breadcrumb a{color:rgba(255,255,255,.65);transition:.2s;}
+    .breadcrumb a:hover{color:#fff;}
+    .breadcrumb span{color:rgba(255,255,255,.4);}
+    .page-hero h1{
+      font-family:var(--serif);
+      font-size:clamp(36px,5.5vw,72px);
+      font-weight:700;color:#fff;
+      line-height:1.05;
+      max-width:700px;
+      text-shadow:0 2px 24px rgba(0,0,0,.25);
+    }
+    .page-hero h1 em{
+      font-style:italic;color:rgba(255,255,255,.75);
+    }
+    .hero-stripe{
+      height:6px;
+      background:linear-gradient(90deg,var(--sky) 0%,var(--crimson) 50%,var(--pink) 100%);
+    }
+
+    /* ── MISSION SPLIT ── */
+    .mission{
+      display:grid;grid-template-columns:1fr 1fr;
+      min-height:520px;
+    }
+    .mission-visual{
+      position:relative;overflow:hidden;
+    }
+    .mission-visual img{width:100%;height:100%;object-fit:cover;}
+    .mission-visual-badge{
+      position:absolute;bottom:32px;left:32px;
+      background:var(--crimson);
+      color:#fff;padding:16px 22px;
+    }
+    .mission-visual-badge .big{display:block;font-family:var(--serif);font-size:42px;font-weight:700;line-height:1;}
+    .mission-visual-badge .small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.85;}
+    .mission-body{
+      background:var(--black);
+      padding:72px 60px;
+      display:flex;flex-direction:column;justify-content:center;
+    }
+    .mission-label{
+      font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--sky);margin-bottom:16px;display:block;
+    }
+    .mission-body h2{
+      font-family:var(--serif);font-size:clamp(26px,3.2vw,42px);
+      font-weight:700;color:#fff;line-height:1.15;margin-bottom:24px;
+    }
+    .mission-body h2 span{color:var(--pink);}
+    .mission-body p{font-size:15.5px;color:rgba(255,255,255,.65);line-height:1.85;margin-bottom:16px;}
+    .mission-body p:last-of-type{margin-bottom:32px;}
+    .btn-sky-solid{
+      display:inline-block;background:var(--sky);color:#fff;
+      font-weight:700;font-size:13px;padding:14px 28px;
+      letter-spacing:.06em;text-transform:uppercase;
+      transition:.2s;align-self:flex-start;
+      cursor:pointer;border:none;font-family:var(--sans);
+    }
+    .btn-sky-solid:hover{background:var(--sky2);}
+
+    /* ── STATS BAND ── */
+    .stats-band{
+      display:grid;grid-template-columns:repeat(4,1fr);
+    }
+    .stat-cell{
+      padding:52px 28px;text-align:center;color:#fff;
+      position:relative;
+    }
+    .stat-cell::after{content:'';position:absolute;right:0;top:20%;bottom:20%;width:1px;background:rgba(255,255,255,.2);}
+    .stat-cell:last-child::after{display:none;}
+    .stat-cell:nth-child(1){background:var(--sky);}
+    .stat-cell:nth-child(2){background:var(--crimson);}
+    .stat-cell:nth-child(3){background:var(--pink);}
+    .stat-cell:nth-child(4){background:var(--sky2);}
+    .stat-n{display:block;font-family:var(--serif);font-size:56px;font-weight:700;line-height:1;margin-bottom:8px;}
+    .stat-l{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.88;}
+    .stat-d{font-size:13px;margin-top:8px;opacity:.7;line-height:1.4;}
+
+    /* ── STORY TIMELINE ── */
+    .story-sec{padding:96px 5%;background:var(--off);}
+    .story-head{margin-bottom:64px;}
+    .sec-label{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;display:block;}
+    .sec-label.sky{color:var(--sky2);}
+    .sec-label.cr{color:var(--crimson);}
+    .sec-label.pk{color:var(--pink);}
+    .sec-title{font-family:var(--serif);font-size:clamp(26px,3.2vw,42px);font-weight:700;color:var(--black);line-height:1.15;margin-bottom:12px;}
+    .sec-desc{font-size:15.5px;color:var(--muted);line-height:1.8;max-width:560px;}
+    .timeline{display:flex;flex-direction:column;gap:0;}
+    .tl-item{
+      display:grid;grid-template-columns:120px 48px 1fr;
+      gap:0;align-items:stretch;
+    }
+    .tl-year{
+      display:flex;align-items:flex-start;justify-content:flex-end;
+      padding:28px 24px 28px 0;
+      font-family:var(--serif);font-size:22px;font-weight:700;
+      padding-top:32px;
+    }
+    .tl-item:nth-child(1) .tl-year{color:var(--sky2);}
+    .tl-item:nth-child(2) .tl-year{color:var(--crimson);}
+    .tl-item:nth-child(3) .tl-year{color:var(--pink2);}
+    .tl-item:nth-child(4) .tl-year{color:var(--sky2);}
+    .tl-item:nth-child(5) .tl-year{color:var(--crimson);}
+    .tl-spine{
+      display:flex;flex-direction:column;align-items:center;
+      position:relative;
+    }
+    .tl-dot{
+      width:18px;height:18px;border-radius:50%;
+      flex-shrink:0;margin-top:33px;position:relative;z-index:1;
+    }
+    .tl-item:nth-child(1) .tl-dot{background:var(--sky);}
+    .tl-item:nth-child(2) .tl-dot{background:var(--crimson);}
+    .tl-item:nth-child(3) .tl-dot{background:var(--pink);}
+    .tl-item:nth-child(4) .tl-dot{background:var(--sky2);}
+    .tl-item:nth-child(5) .tl-dot{background:var(--crimson);}
+    .tl-line{
+      flex:1;width:3px;
+      margin-top:4px;
+    }
+    .tl-item:nth-child(1) .tl-line{background:linear-gradient(to bottom,var(--sky),var(--crimson));}
+    .tl-item:nth-child(2) .tl-line{background:linear-gradient(to bottom,var(--crimson),var(--pink));}
+    .tl-item:nth-child(3) .tl-line{background:linear-gradient(to bottom,var(--pink),var(--sky2));}
+    .tl-item:nth-child(4) .tl-line{background:linear-gradient(to bottom,var(--sky2),var(--crimson));}
+    .tl-item:last-child .tl-line{display:none;}
+    .tl-body{
+      padding:24px 0 24px 28px;
+      border-left:none;
+    }
+    .tl-tag{
+      display:inline-block;font-size:10px;font-weight:700;
+      letter-spacing:.1em;text-transform:uppercase;
+      padding:3px 10px;margin-bottom:10px;border-radius:2px;
+    }
+    .tl-item:nth-child(1) .tl-tag{background:var(--sky-pale);color:var(--sky2);}
+    .tl-item:nth-child(2) .tl-tag{background:var(--crim-pale);color:var(--crimson);}
+    .tl-item:nth-child(3) .tl-tag{background:var(--pink-pale);color:var(--pink2);}
+    .tl-item:nth-child(4) .tl-tag{background:var(--sky-pale);color:var(--sky2);}
+    .tl-item:nth-child(5) .tl-tag{background:var(--crim-pale);color:var(--crimson);}
+    .tl-body h3{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--black);margin-bottom:8px;line-height:1.2;}
+    .tl-body p{font-size:14px;color:var(--muted);line-height:1.75;}
+
+    /* ── VALUES ── */
+    .values-sec{padding:0;}
+    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+    .val-card{
+      padding:52px 36px 44px;
+      position:relative;overflow:hidden;
+      min-height:340px;
+      display:flex;flex-direction:column;
+    }
+    .val-card::before{
+      content:attr(data-icon);
+      position:absolute;bottom:-10px;right:-10px;
+      font-size:110px;line-height:1;
+      opacity:.08;color:#fff;
+      font-family:var(--sans);
+    }
+    .val-card:nth-child(1){background:var(--sky);}
+    .val-card:nth-child(2){background:var(--crimson);}
+    .val-card:nth-child(3){background:var(--pink);}
+    .val-card:nth-child(4){background:var(--sky2);}
+    .val-ico{
+      width:54px;height:54px;
+      background:rgba(255,255,255,.15);
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:22px;color:#fff;
+      margin-bottom:22px;
+    }
+    .val-card h3{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff;margin-bottom:14px;}
+    .val-card p{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.78;flex:1;}
+    .val-num{
+      margin-top:28px;
+      font-family:var(--serif);font-size:13px;font-weight:700;
+      color:rgba(255,255,255,.4);letter-spacing:.08em;
+    }
+
+    /* ── TEAM ── */
+    .team-sec{padding:96px 5%;}
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;}
+    .tm-card{
+      position:relative;overflow:hidden;
+      border:1px solid var(--border);border-right:none;
+      transition:.3s;
+    }
+    .tm-card:last-child{border-right:1px solid var(--border);}
+    .tm-photo{height:280px;overflow:hidden;position:relative;}
+    .tm-photo img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s;}
+    .tm-card:hover .tm-photo img{transform:scale(1.06);}
+    .tm-color-bar{height:5px;}
+    .tm-card:nth-child(1) .tm-color-bar{background:var(--sky);}
+    .tm-card:nth-child(2) .tm-color-bar{background:var(--crimson);}
+    .tm-card:nth-child(3) .tm-color-bar{background:var(--pink);}
+    .tm-card:nth-child(4) .tm-color-bar{background:var(--sky2);}
+    .tm-body{padding:22px 20px 24px;}
+    .tm-body h3{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--black);margin-bottom:4px;}
+    .tm-role{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+    .tm-card:nth-child(1) .tm-role{color:var(--sky2);}
+    .tm-card:nth-child(2) .tm-role{color:var(--crimson);}
+    .tm-card:nth-child(3) .tm-role{color:var(--pink2);}
+    .tm-card:nth-child(4) .tm-role{color:var(--sky2);}
+    .tm-body p{font-size:13px;color:var(--muted);line-height:1.68;}
+    .tm-socials{display:flex;gap:10px;margin-top:14px;}
+    .tm-socials a{
+      width:30px;height:30px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:13px;transition:.2s;
+    }
+    .tm-card:nth-child(1) .tm-socials a{background:var(--sky-pale);color:var(--sky2);}
+    .tm-card:nth-child(2) .tm-socials a{background:var(--crim-pale);color:var(--crimson);}
+    .tm-card:nth-child(3) .tm-socials a{background:var(--pink-pale);color:var(--pink2);}
+    .tm-card:nth-child(4) .tm-socials a{background:var(--sky-pale);color:var(--sky2);}
+    .tm-socials a:hover{filter:brightness(.9);transform:scale(1.1);}
+
+    /* ── APPROACH SPLIT ── */
+    .approach{
+      display:grid;grid-template-columns:45% 55%;
+      min-height:560px;
+    }
+    .approach-left{
+      background:var(--crimson);
+      padding:72px 56px;
+      display:flex;flex-direction:column;justify-content:center;
+    }
+    .approach-left .sec-label{color:rgba(255,255,255,.6);}
+    .approach-left h2{font-family:var(--serif);font-size:clamp(26px,3vw,40px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:20px;}
+    .approach-left p{font-size:15px;color:rgba(255,255,255,.8);line-height:1.85;margin-bottom:28px;}
+    .approach-right{
+      background:var(--white);
+      padding:72px 56px;
+      display:flex;flex-direction:column;justify-content:center;
+      gap:0;
+    }
+    .approach-item{
+      display:grid;grid-template-columns:52px 1fr;gap:18px;
+      padding:24px 0;border-bottom:1px solid var(--border);
+      align-items:start;
+    }
+    .approach-item:first-child{padding-top:0;}
+    .approach-item:last-child{border-bottom:none;padding-bottom:0;}
+    .ai-num{
+      width:48px;height:48px;
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--serif);font-size:18px;font-weight:700;color:#fff;
+      flex-shrink:0;
+    }
+    .approach-item:nth-child(1) .ai-num{background:var(--sky);}
+    .approach-item:nth-child(2) .ai-num{background:var(--crimson);}
+    .approach-item:nth-child(3) .ai-num{background:var(--pink);}
+    .approach-item:nth-child(4) .ai-num{background:var(--sky2);}
+    .ai-text h4{font-size:15px;font-weight:700;color:var(--black);margin-bottom:5px;}
+    .ai-text p{font-size:13.5px;color:var(--muted);line-height:1.7;}
+
+    /* ── PARTNERS ── */
+    .partners-sec{
+      background:var(--black);
+      padding:72px 5%;
+    }
+    .partners-head{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:48px;flex-wrap:wrap;gap:16px;
+    }
+    .partners-head h2{font-family:var(--serif);font-size:28px;font-weight:700;color:#fff;}
+    .partners-head p{font-size:14px;color:rgba(255,255,255,.45);}
+    .partners-row{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+      background:rgba(255,255,255,.08);
+    }
+    .partner-cell{
+      background:var(--black);
+      padding:32px 20px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      color:rgba(255,255,255,.3);
+      transition:.2s;
+      text-align:center;line-height:1.4;
+    }
+    .partner-cell:hover{background:#111;color:rgba(255,255,255,.7);}
+    .partner-cell i{display:block;font-size:24px;margin-bottom:8px;opacity:.4;}
+
+    /* ── CTA STRIP ── */
+    .about-cta{
+      position:relative;overflow:hidden;
+      min-height:280px;
+      display:flex;align-items:center;
+    }
+    .about-cta-bg{
+      position:absolute;inset:0;
+      background-image:url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;background-position:center 40%;
+    }
+    .about-cta-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(100deg,rgba(26,125,158,.92) 0%,rgba(192,57,43,.88) 60%,rgba(212,96,122,.82) 100%);
+    }
+    .about-cta-content{
+      position:relative;z-index:2;
+      padding:64px 5%;
+      width:100%;
+      display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+    }
+    .about-cta-content h2{font-family:var(--serif);font-size:clamp(24px,3.2vw,44px);font-weight:700;color:#fff;max-width:580px;line-height:1.2;}
+    .about-cta-content h2 span{font-style:italic;opacity:.8;}
+    .cta-btns{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-white-solid{
+      background:#fff;font-weight:700;font-size:13.5px;
+      padding:14px 30px;text-transform:uppercase;letter-spacing:.05em;
+      border:none;cursor:pointer;font-family:var(--sans);transition:.2s;
+      color:var(--crimson);
+    }
+    .btn-white-solid:hover{background:var(--crim-pale);}
+    .btn-outline-white{
+      background:transparent;font-weight:700;font-size:13.5px;
+      padding:12px 28px;text-transform:uppercase;letter-spacing:.05em;
+      border:2px solid rgba(255,255,255,.6);color:#fff;
+      cursor:pointer;font-family:var(--sans);transition:.2s;
+    }
+    .btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.1);}
+
+    /* ── FOOTER ── */
+    footer{background:#0f1618;color:rgba(255,255,255,.5);}
+    .faccent{height:4px;background:linear-gradient(90deg, var(--sky) 0%, var(--crimson) 50%, var(--pink) 100%);}
+    .ftop{padding:56px 5% 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
+    .flogo p{font-size:13.5px;line-height:1.8;color:rgba(255,255,255,.38);margin-top:12px;}
+    .flogo-name{font-family:var(--serif);font-size:21px;font-weight:700;color:#fff;}
+    .flogo-name span{color:var(--pink);}
+    .fcol h4{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
+    .fcol h4.sky{color:var(--sky);}
+    .fcol h4.pk{color:var(--pink);}
+    .fcol h4.cr{color:#e87a72;}
+    .fcol ul{list-style:none;}
+    .fcol li{margin-bottom:9px;}
+    .fcol a{font-size:13.5px;color:rgba(255,255,255,.42);transition:color .2s;}
+    .fcol a:hover{color:#fff;}
+    .fbot{padding:16px 5%;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:8px;}
+    .fbot a{color:rgba(255,255,255,.28);margin-left:14px;transition:color .2s;}
+    .fbot a:hover{color:#fff;}
+
+    /* ── DONATE MODAL ── */
+    .modal-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s;}
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+    .modal{background:#fff;width:100%;max-width:860px;display:grid;grid-template-columns:1fr 1fr;border-radius:4px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.3);transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.16,1,.3,1);max-height:92vh;overflow-y:auto;}
+    .modal-overlay.open .modal{transform:translateY(0) scale(1);}
+    .modal-left{position:relative;min-height:380px;}
+    .modal-left img{width:100%;height:100%;object-fit:cover;display:block;}
+    .modal-left-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,125,158,.5) 0%,rgba(192,57,43,.55) 100%);}
+    .modal-left-content{position:absolute;bottom:0;left:0;right:0;padding:32px 28px;}
+    .modal-logo{width:52px;height:52px;background:var(--sky);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+    .modal-logo i{color:#fff;font-size:22px;}
+    .modal-left-content h2{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.25;}
+    .modal-left-content p{font-size:13.5px;color:rgba(255,255,255,.85);line-height:1.65;}
+    .modal-right{padding:36px 32px;display:flex;flex-direction:column;gap:20px;}
+    .modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--black);transition:.2s;z-index:2;}
+    .modal-close:hover{background:#fff;transform:scale(1.1);}
+    .modal-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--black);margin-bottom:4px;}
+    .modal-subtitle{font-size:13px;color:var(--muted);}
+    .freq-tabs{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--border);border-radius:3px;overflow:hidden;}
+    .freq-tab{padding:11px 8px;text-align:center;font-size:13.5px;font-weight:700;cursor:pointer;transition:.2s;border:none;background:#fff;font-family:var(--sans);color:var(--muted);}
+    .freq-tab.active{background:var(--sky);color:#fff;}
+    .freq-tab:first-child{border-right:2px solid var(--border);}
+    .amount-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+    .amt-btn{padding:12px 8px;text-align:center;font-size:15px;font-weight:700;border:2px solid var(--border);background:#fff;cursor:pointer;transition:.2s;border-radius:2px;font-family:var(--sans);color:var(--black);}
+    .amt-btn:hover{border-color:var(--sky);color:var(--sky);}
+    .amt-btn.active{border-color:var(--sky);background:var(--sky-pale);color:var(--sky2);}
+    .custom-amount-wrap{position:relative;border:2px solid var(--border);border-radius:2px;display:flex;align-items:center;}
+    .custom-amount-wrap.focused{border-color:var(--sky);}
+    .currency-prefix{padding:12px 14px;font-size:16px;font-weight:700;color:var(--black);}
+    .custom-amount-input{flex:1;border:none;outline:none;font-size:16px;font-weight:700;padding:12px 14px 12px 0;font-family:var(--sans);color:var(--black);background:transparent;}
+    .currency-suffix{padding:12px 14px;font-size:13px;color:var(--muted);font-weight:600;}
+    .dedicate-row{display:flex;align-items:center;gap:10px;cursor:pointer;}
+    .dedicate-row input[type="checkbox"]{width:18px;height:18px;accent-color:var(--sky);cursor:pointer;}
+    .dedicate-row label{font-size:13.5px;color:var(--black);cursor:pointer;}
+    .donate-cta-btn{background:var(--sky);color:#fff;font-weight:700;font-size:15px;padding:16px;text-align:center;border:none;cursor:pointer;font-family:var(--sans);letter-spacing:.04em;transition:.2s;border-radius:2px;}
+    .donate-cta-btn:hover{background:var(--sky2);}
+    .secure-badge{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--muted);}
+    .secure-badge i{color:#27ae60;font-size:14px;}
+
+    /* ── SEARCH OVERLAY ── */
+    .search-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;flex-direction:column;align-items:center;padding:80px 20px 40px;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .search-overlay.open{opacity:1;pointer-events:all;}
+    .search-box{width:100%;max-width:680px;background:#fff;display:flex;align-items:center;padding:4px 4px 4px 20px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+    .search-box input{flex:1;border:none;outline:none;font-size:18px;font-family:var(--sans);padding:12px 0;color:var(--black);background:transparent;}
+    .search-box input::placeholder{color:#aaa;}
+    .search-submit{background:var(--sky);color:#fff;border:none;cursor:pointer;padding:14px 20px;font-size:18px;transition:.2s;}
+    .search-submit:hover{background:var(--sky2);}
+    .search-close{position:absolute;top:24px;right:28px;background:transparent;border:none;color:#fff;font-size:28px;cursor:pointer;opacity:.7;transition:.2s;}
+    .search-close:hover{opacity:1;}
+    .search-results{width:100%;max-width:680px;margin-top:16px;}
+    .search-result-item{background:#fff;padding:18px 20px;margin-bottom:8px;cursor:pointer;transition:.2s;border-left:4px solid transparent;}
+    .search-result-item:hover{border-left-color:var(--sky);}
+    .search-result-item h4{font-size:15px;font-weight:700;color:var(--black);margin-bottom:4px;}
+    .search-result-item p{font-size:13px;color:var(--muted);}
+    .search-result-item .tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sky2);margin-bottom:6px;display:block;}
+    .search-no-results{color:rgba(255,255,255,.7);font-size:15px;padding:20px 0;text-align:center;}
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+    .reveal.in{opacity:1;transform:translateY(0);}
+    .reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+    .reveal-left.in{opacity:1;transform:translateX(0);}
+    .reveal-right{opacity:0;transform:translateX(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+    .reveal-right.in{opacity:1;transform:translateX(0);}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .team-grid{grid-template-columns:repeat(2,1fr);}
+      .tm-card:nth-child(2){border-right:1px solid var(--border);}
+      .tm-card:nth-child(3){border-right:none;}
+      .values-grid{grid-template-columns:repeat(2,1fr);}
+      .ftop{grid-template-columns:1fr 1fr;}
+      .partners-row{grid-template-columns:repeat(3,1fr);}
+    }
+    @media(max-width:900px){
+      .mission{grid-template-columns:1fr;}
+      .mission-body{padding:52px 36px;}
+      .approach{grid-template-columns:1fr;}
+      .approach-left{padding:52px 36px;}
+      .approach-right{padding:52px 36px;}
+      .stats-band{grid-template-columns:repeat(2,1fr);}
+      .about-cta-content{flex-direction:column;align-items:flex-start;}
+      .modal{grid-template-columns:1fr;}
+      .modal-left{min-height:220px;}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none;}
+      .team-grid{grid-template-columns:1fr;}
+      .tm-card{border-right:1px solid var(--border)!important;}
+      .values-grid{grid-template-columns:1fr;}
+      .page-hero-geo .geo-sky{width:100%;clip-path:polygon(0 0,100% 0,100% 65%,0 100%);}
+      .page-hero-geo .geo-crimson,.page-hero-geo .geo-pink{display:none;}
+      .partners-row{grid-template-columns:repeat(2,1fr);}
+      .ftop{grid-template-columns:1fr;}
+    }
+    @media(max-width:480px){
+      .stats-band{grid-template-columns:1fr;}
+      .stat-cell::after{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── DONATE MODAL ── -->
+  <div class="modal-overlay" id="donateModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-left">
+        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=900&auto=format&fit=crop" alt="">
+        <div class="modal-left-overlay"></div>
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-left-content">
+          <div class="modal-logo"><i class="fa-solid fa-children"></i></div>
+          <h2>Save the Life of a Child Today</h2>
+          <p>All children deserve safe, healthy lives. Your donation makes it possible. <strong style="color:#fff;">You can make a difference today.</strong></p>
+        </div>
+      </div>
+      <div class="modal-right">
+        <div><div class="modal-title">Make a Donation</div><div class="modal-subtitle">Secure · Tax-deductible · Transparent</div></div>
+        <div class="freq-tabs">
+          <button class="freq-tab active" data-freq="once">Give once</button>
+          <button class="freq-tab" data-freq="monthly">♥ Monthly</button>
+        </div>
+        <div class="amount-grid" id="amountGrid">
+          <button class="amt-btn" data-amount="20">$20</button>
+          <button class="amt-btn" data-amount="40">$40</button>
+          <button class="amt-btn" data-amount="75">$75</button>
+          <button class="amt-btn active" data-amount="120">$120</button>
+          <button class="amt-btn" data-amount="250">$250</button>
+          <button class="amt-btn" data-amount="1000">$1,000</button>
+        </div>
+        <div class="custom-amount-wrap" id="customWrap">
+          <span class="currency-prefix">$</span>
+          <input class="custom-amount-input" id="customAmount" type="number" placeholder="120" value="120" min="1">
+          <span class="currency-suffix">USD</span>
+        </div>
+        <label class="dedicate-row"><input type="checkbox" id="dedicateCheck"><span>Dedicate this donation</span></label>
+        <button class="donate-cta-btn" id="donateCTABtn">Donate</button>
+        <div class="secure-badge"><i class="fa-solid fa-lock"></i><span>Secure donation — SSL encrypted</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEARCH OVERLAY ── -->
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true">
+    <button class="search-close" id="searchClose">&times;</button>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search programs, stories, events…" autocomplete="off">
+      <button class="search-submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <!-- ── TOPBAR ── -->
+  <div class="topbar">
+    <span>Empowering communities. Changing lives for over 20 years.</span>
+    <a onclick="openDonate()">Donate Now →</a>
+  </div>
+
+  <!-- ── TICKER ── -->
+  <div class="ticker">
+    <div class="tinner">
+      <span>Education outreach reaches 5,000 children across West Africa</span>
+      <span class="accent">Emergency food support expanded across 12 communities</span>
+      <span>New child protection initiative launched globally</span>
+      <span class="accent">Health and sanitation project begins this month</span>
+      <span>50 children reintegrated into families this quarter</span>
+      <span class="accent">Education outreach reaches 5,000 children across West Africa</span>
+    </div>
+  </div>
+
+  <!-- ── HEADER ── -->
+  <div class="site-header">
+    <a href="index.html" class="logo"><img src="gsk_logo.png" alt="GSK Initiative" onerror="this.style.display='none'"></a>
+    <div class="hd-right">
+      <div class="hd-meta">
+        <span>Registered Charity · Est. 2006</span>
+        <span>info@gskinitiative.org</span>
+      </div>
+      <button class="hd-donate" onclick="openDonate()">Donate Now</button>
+    </div>
+  </div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About Us</a>
+      <a href="#">Programs</a>
+      <a href="#">Stories</a>
+      <a href="#">Blog</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-search" id="navSearchBtn">⌕ Search</div>
+      <button class="nav-donate" id="navDonateBtn" onclick="openDonate()">Donate Now</button>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ── -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-geo">
+      <div class="geo-sky"></div>
+      <div class="geo-crimson"></div>
+      <div class="geo-pink"></div>
+    </div>
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span style="color:rgba(255,255,255,.9);">About Us</span>
+      </div>
+      <h1>Who We Are &<br><em>Why We Do This</em></h1>
+    </div>
+  </div>
+  <div class="hero-stripe"></div>
+
+  <!-- ── MISSION ── -->
+  <section class="mission">
+    <div class="mission-visual reveal-left">
+      <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?q=80&w=900&auto=format&fit=crop" alt="Children learning">
+      <div class="mission-visual-badge">
+        <span class="big">2006</span>
+        <span class="small">Year Founded</span>
+      </div>
+    </div>
+    <div class="mission-body reveal-right">
+      <span class="mission-label">Our Mission</span>
+      <h2>Fighting for Every Child's Right to a<span> Better Future</span></h2>
+      <p>GSK Initiative was born out of a simple, urgent belief: no child should be left behind because of poverty, neglect, or circumstance. Since 2006, we have worked tirelessly on the streets, in communities, and at the highest levels of policy to transform that belief into reality.</p>
+      <p>We partner with families, governments, schools, and global organisations to deliver education, protection, reintegration, and empowerment for street-connected and vulnerable children across West Africa and beyond.</p>
+      <button class="btn-sky-solid" onclick="openDonate()">Support Our Mission</button>
+    </div>
+  </section>
+
+  <!-- ── STATS BAND ── -->
+  <div class="stats-band">
+    <div class="stat-cell reveal">
+      <span class="stat-n">146+</span>
+      <span class="stat-l">Interventions</span>
+      <span class="stat-d">Direct field actions changing children's lives</span>
+    </div>
+    <div class="stat-cell reveal" style="transition-delay:.1s">
+      <span class="stat-n">5,000+</span>
+      <span class="stat-l">Children Reached</span>
+      <span class="stat-d">Through education outreach across West Africa</span>
+    </div>
+    <div class="stat-cell reveal" style="transition-delay:.2s">
+      <span class="stat-n">50+</span>
+      <span class="stat-l">Re-integrations</span>
+      <span class="stat-d">Children successfully reunited with families</span>
+    </div>
+    <div class="stat-cell reveal" style="transition-delay:.3s">
+      <span class="stat-n">20 yrs</span>
+      <span class="stat-l">Experience</span>
+      <span class="stat-d">Two decades of measurable, sustained impact</span>
+    </div>
+  </div>
+
+  <!-- ── STORY / TIMELINE ── -->
+  <section class="story-sec">
+    <div class="story-head reveal">
+      <span class="sec-label sky">Our Journey</span>
+      <h2 class="sec-title">Two Decades of Impact</h2>
+      <p class="sec-desc">From a small community initiative to a nationally recognised charity — here is how our story has unfolded.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-year">2006</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">Founded</span>
+          <h3>GSK Initiative is Born</h3>
+          <p>A small group of community advocates established GSK Initiative in Lagos, Nigeria, with a single goal: provide safe spaces and educational pathways for street-connected children.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2010</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">Expansion</span>
+          <h3>Regional Growth & First Partnerships</h3>
+          <p>We expanded operations into three additional states and forged our first formal partnerships with government welfare agencies. Our flagship education programme reached 800 children.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2015</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">Milestone</span>
+          <h3>50 Successful Family Reintegrations</h3>
+          <p>Our reintegration unit celebrated its 50th successful case — children returned safely to families and enrolled in school — a landmark that validated our holistic, child-centred model.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2020</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">Resilience</span>
+          <h3>Serving Communities Through the Pandemic</h3>
+          <p>When COVID-19 devastated vulnerable communities, we pivoted rapidly to deliver emergency food support to over 12 communities, ensuring no child went without during the crisis.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2026</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">Today</span>
+          <h3>Global Coalition & Continued Growth</h3>
+          <p>Today, GSK Initiative is a member of a 47-organisation global coalition on child rights, operates a new vocational centre in Ibadan, and continues to grow its reach across West Africa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALUES ── -->
+  <section class="values-sec">
+    <div class="values-grid">
+      <div class="val-card" data-icon="♦">
+        <div class="val-ico"><i class="fa-solid fa-ear-listen"></i></div>
+        <h3>Listen First</h3>
+        <p>We place children at the centre of every decision. Their voices, experiences, and aspirations directly shape our programmes, priorities, and approach. Nothing about them without them.</p>
+        <span class="val-num">01</span>
+      </div>
+      <div class="val-card" data-icon="●">
+        <div class="val-ico"><i class="fa-solid fa-bullseye"></i></div>
+        <h3>Focus on Impact</h3>
+        <p>We direct our energy where change is measurable and lasting. We invest in proven approaches, rigorously evaluate outcomes, and are honest about what works and what doesn't.</p>
+        <span class="val-num">02</span>
+      </div>
+      <div class="val-card" data-icon="★">
+        <div class="val-ico"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Safety Always</h3>
+        <p>Child welfare is non-negotiable. Every interaction, partnership, and programme is governed by strict safeguarding policies and international child protection standards.</p>
+        <span class="val-num">03</span>
+      </div>
+      <div class="val-card" data-icon="▲">
+        <div class="val-ico"><i class="fa-solid fa-handshake"></i></div>
+        <h3>Partnership</h3>
+        <p>Lasting change requires collective effort. We work alongside governments, NGOs, families, and communities — sharing knowledge, resources, and responsibility for outcomes.</p>
+        <span class="val-num">04</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── APPROACH ── -->
+  <section class="approach">
+    <div class="approach-left reveal-left">
+      <span class="sec-label cr">How We Work</span>
+      <h2>A Model Built for Lasting Change</h2>
+      <p>Our approach is grounded in years of fieldwork, research, and community feedback. We don't impose solutions — we co-create them with the people we serve, ensuring every programme is culturally appropriate, evidence-based, and sustainable long after we leave.</p>
+    </div>
+    <div class="approach-right reveal-right">
+      <div class="approach-item">
+        <div class="ai-num">1</div>
+        <div class="ai-text">
+          <h4>Community Needs Assessment</h4>
+          <p>We begin by listening — engaging children, families, and local leaders to understand the real challenges before designing any response.</p>
+        </div>
+      </div>
+      <div class="approach-item">
+        <div class="ai-num">2</div>
+        <div class="ai-text">
+          <h4>Tailored Programme Design</h4>
+          <p>Programmes are designed specifically for each community context, combining international best practices with local knowledge and cultural sensitivity.</p>
+        </div>
+      </div>
+      <div class="approach-item">
+        <div class="ai-num">3</div>
+        <div class="ai-text">
+          <h4>Implementation & Monitoring</h4>
+          <p>Our trained field teams deliver programmes directly, with real-time monitoring to ensure quality, safety, and effectiveness at every stage.</p>
+        </div>
+      </div>
+      <div class="approach-item">
+        <div class="ai-num">4</div>
+        <div class="ai-text">
+          <h4>Evaluation & Scale</h4>
+          <p>We rigorously evaluate every intervention. Programmes that demonstrate impact are scaled; lessons from every initiative feed into continuous improvement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEAM ── -->
+  <section class="team-sec">
+    <div class="reveal">
+      <span class="sec-label pk">The People Behind the Work</span>
+      <h2 class="sec-title">Meet Our Leadership Team</h2>
+      <p class="sec-desc">Passionate advocates with decades of combined experience in child welfare, education, and social development.</p>
+    </div>
+    <div class="team-grid">
+      <div class="tm-card reveal" style="transition-delay:.05s">
+        <div class="tm-photo"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=600&auto=format&fit=crop" alt="Executive Director"></div>
+        <div class="tm-color-bar"></div>
+        <div class="tm-body">
+          <h3>Amara Okonkwo</h3>
+          <div class="tm-role">Executive Director & Founder</div>
+          <p>A social entrepreneur with 20+ years fighting for child rights. Amara founded GSK Initiative after witnessing the scale of street child vulnerability across West Africa.</p>
+          <div class="tm-socials">
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="tm-card reveal" style="transition-delay:.1s">
+        <div class="tm-photo"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=600&auto=format&fit=crop" alt="Programs Director"></div>
+        <div class="tm-color-bar"></div>
+        <div class="tm-body">
+          <h3>Dr. Chidi Eze</h3>
+          <div class="tm-role">Director of Programs</div>
+          <p>Former UNICEF specialist in child protection. Chidi architects our evidence-based programme frameworks and ensures every intervention meets international standards.</p>
+          <div class="tm-socials">
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="tm-card reveal" style="transition-delay:.15s">
+        <div class="tm-photo"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=600&auto=format&fit=crop" alt="Advocacy Lead"></div>
+        <div class="tm-color-bar"></div>
+        <div class="tm-body">
+          <h3>Ngozi Adeyemi</h3>
+          <div class="tm-role">Head of Advocacy</div>
+          <p>A legal advocate and policy specialist who has presented at the African Union on child rights. Ngozi leads our work with governments and international coalitions.</p>
+          <div class="tm-socials">
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="tm-card reveal" style="transition-delay:.2s">
+        <div class="tm-photo"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600&auto=format&fit=crop" alt="Partnerships Director"></div>
+        <div class="tm-color-bar"></div>
+        <div class="tm-body">
+          <h3>Emeka Obi</h3>
+          <div class="tm-role">Director of Partnerships</div>
+          <p>With a background in international development finance, Emeka builds the strategic alliances and funding partnerships that sustain and scale our programmes.</p>
+          <div class="tm-socials">
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PARTNERS ── -->
+  <section class="partners-sec">
+    <div class="partners-head reveal">
+      <div>
+        <h2>Our Partners & Supporters</h2>
+        <p>Working together with world-class organisations to deliver lasting change.</p>
+      </div>
+    </div>
+    <div class="partners-row reveal">
+      <div class="partner-cell"><i class="fa-solid fa-globe"></i>UNICEF</div>
+      <div class="partner-cell"><i class="fa-solid fa-building-columns"></i>Federal Ministry of Humanitarian Affairs</div>
+      <div class="partner-cell"><i class="fa-solid fa-hands-holding-child"></i>Save the Children</div>
+      <div class="partner-cell"><i class="fa-solid fa-earth-africa"></i>African Union Commission</div>
+      <div class="partner-cell"><i class="fa-solid fa-people-group"></i>Street Child Alliance</div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <div class="about-cta">
+    <div class="about-cta-bg"></div>
+    <div class="about-cta-overlay"></div>
+    <div class="about-cta-content">
+      <h2>Ready to Join Us in <span>Changing Lives?</span></h2>
+      <div class="cta-btns">
+        <button class="btn-white-solid" onclick="openDonate()">Donate Now</button>
+        <button class="btn-outline-white">Volunteer With Us</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="faccent"></div>
+    <div class="ftop">
+      <div class="flogo">
+        <div class="flogo-name">GSK <span>Initiative</span></div>
+        <p>A non-profit organisation dedicated to improving the lives of street-connected and vulnerable children through education, reintegration, and advocacy.</p>
+      </div>
+      <div class="fcol"><h4 class="sky">Organisation</h4><ul><li><a href="about.html">About Us</a></li><li><a href="#">Our Team</a></li><li><a href="#">Annual Reports</a></li><li><a href="#">Partners</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div class="fcol"><h4 class="pk">Programs</h4><ul><li><a href="#">Education</a></li><li><a href="#">Advocacy</a></li><li><a href="#">Empowerment</a></li><li><a href="#">Vocational Training</a></li><li><a href="#">Family Support</a></li></ul></div>
+      <div class="fcol"><h4 class="cr">Get Involved</h4><ul><li><a href="#" onclick="openDonate();return false;">Donate</a></li><li><a href="#">Volunteer</a></li><li><a href="#">Partner With Us</a></li><li><a href="#">Contact</a></li><li><a href="#">Press</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 GSK Initiative. All rights reserved. Registered Charity.</span>
+      <div><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Accessibility</a></div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── DONATE MODAL ── */
+    const donateModal = document.getElementById('donateModal');
+    function openDonate(){ donateModal.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeDonate(){ donateModal.classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('modalClose').addEventListener('click', closeDonate);
+    donateModal.addEventListener('click', e=>{ if(e.target===donateModal) closeDonate(); });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeDonate(); closeSearch(); }});
+
+    document.getElementById('amountGrid').querySelectorAll('.amt-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('customAmount').value = btn.dataset.amount;
+      });
+    });
+    const customInput = document.getElementById('customAmount');
+    const customWrap  = document.getElementById('customWrap');
+    customInput.addEventListener('focus',()=>{ customWrap.classList.add('focused'); document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active')); });
+    customInput.addEventListener('input',()=>{ const v=parseFloat(customInput.value)||0; document.querySelectorAll('.amt-btn').forEach(b=>{ b.classList.toggle('active',parseInt(b.dataset.amount)===v); }); });
+    document.querySelectorAll('.freq-tab').forEach(tab=>{ tab.addEventListener('click',()=>{ document.querySelectorAll('.freq-tab').forEach(t=>t.classList.remove('active')); tab.classList.add('active'); }); });
+    const donateCTABtn = document.getElementById('donateCTABtn');
+    donateCTABtn.addEventListener('click',()=>{
+      donateCTABtn.textContent='✓ Thank you!'; donateCTABtn.style.background='#27ae60';
+      setTimeout(()=>{ donateCTABtn.textContent='Donate'; donateCTABtn.style.background=''; closeDonate(); },2000);
+    });
+
+    /* ── STICKY NAV ── */
+    const mainNav = document.getElementById('mainNav');
+    const navDonateBtn = document.getElementById('navDonateBtn');
+    const siteHeader = document.querySelector('.site-header');
+    window.addEventListener('scroll',()=>{
+      const hb = siteHeader.getBoundingClientRect().bottom;
+      navDonateBtn.classList.toggle('visible', hb<0);
+      mainNav.classList.toggle('scrolled', hb<0);
+    },{ passive:true });
+
+    /* ── SEARCH ── */
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput   = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const siteContent = [
+      {tag:'Program',title:'Advocacy',body:'Amplifying the rights and welfare of vulnerable children at every level — from community to government.'},
+      {tag:'Program',title:'Education',body:'Connecting street children to quality learning and providing the tools they need to stay in school.'},
+      {tag:'Program',title:'Empowerment',body:'Building confidence and life skills so children and families can shape their own futures.'},
+      {tag:'Program',title:'Vocational Training',body:'Practical skills training for adolescents and youth — creating sustainable pathways out of poverty.'},
+      {tag:'About',title:'Our Mission',body:'Fighting for every child\'s right to a better future. GSK Initiative founded in 2006.'},
+      {tag:'About',title:'Our Team',body:'Amara Okonkwo, Dr. Chidi Eze, Ngozi Adeyemi, Emeka Obi — passionate advocates with decades of experience.'},
+      {tag:'About',title:'Our Values',body:'Listen, Focus, Safety and Partnership — four commitments shaping everything we do.'},
+      {tag:'Event',title:'International Day for Street Children – Apr 12',body:'Global awareness event — join our advocacy campaign online.'},
+      {tag:'Event',title:'Day of the African Child – Jun 16',body:'Community events and school outreach across five cities.'},
+      {tag:'Get Involved',title:'Donate to GSK Initiative',body:'Every contribution gives a child a fighting chance at a better future.'},
+    ];
+    function openSearch(){ searchOverlay.classList.add('open'); document.body.style.overflow='hidden'; setTimeout(()=>searchInput.focus(),100); renderResults(''); }
+    function closeSearch(){ searchOverlay.classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('navSearchBtn').addEventListener('click',openSearch);
+    document.getElementById('searchClose').addEventListener('click',closeSearch);
+    searchOverlay.addEventListener('click',e=>{ if(e.target===searchOverlay) closeSearch(); });
+    function renderResults(q){
+      q=q.trim().toLowerCase();
+      if(!q){ searchResults.innerHTML=''; return; }
+      const m=siteContent.filter(i=>i.title.toLowerCase().includes(q)||i.body.toLowerCase().includes(q)||i.tag.toLowerCase().includes(q));
+      if(!m.length){ searchResults.innerHTML=`<div class="search-no-results">No results for "<strong style="color:#fff">${q}</strong>"</div>`; return; }
+      searchResults.innerHTML=m.map(i=>`<div class="search-result-item" onclick="closeSearch()"><span class="tag">${i.tag}</span><h4>${i.title}</h4><p>${i.body}</p></div>`).join('');
+    }
+    searchInput.addEventListener('input',()=>renderResults(searchInput.value));
+
+    /* ── SCROLL REVEAL ── */
+    const revEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
+    },{threshold:0.12});
+    revEls.forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
